@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/sequelize";
 import { Social } from "./models/social.model";
 import { CreateSocialDto } from "./dto/create-social.dto";
 import { UpdateSocialDto } from "./dto/update-social.dto";
+import { Users } from "../users/models/user.model";
 
 @Injectable()
 export class SocialService {
@@ -14,10 +15,19 @@ export class SocialService {
     return newSocial;
   }
   async getAllSocials() {
-    return this.SocialModel.findAll();
+    return this.SocialModel.findAll({
+      include: {
+        model: Users,
+        attributes: ["full_name", "role"],
+      },
+    });
   }
   async getSocialById(id: number): Promise<Social | null> {
     return this.SocialModel.findByPk(id);
+  }
+
+  async getSocialByName(name: string): Promise<Social | null> {
+    return this.SocialModel.findOne({ where: { name } });
   }
   async updateSocialById(id: number, updateSocialDto: UpdateSocialDto) {
     const social = await this.SocialModel.update(updateSocialDto, {
