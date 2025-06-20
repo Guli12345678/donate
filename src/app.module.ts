@@ -17,6 +17,9 @@ import { NotificationsModule } from "./notifications/notifications.module";
 import { Notification } from "./notifications/models/notification.model";
 import { CreatorSocialModule } from "./creator-social/creator-social.module";
 import { CreatorSocial } from "./creator-social/models/creator-social.model";
+import { AuthModule } from './auth/auth.module';
+import { ProductsModule } from './products/products.module';
+import { ProductImagesModule } from './product_images/product_images.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -52,6 +55,9 @@ import { CreatorSocial } from "./creator-social/models/creator-social.model";
     DonationsModule,
     NotificationsModule,
     CreatorSocialModule,
+    AuthModule,
+    ProductsModule,
+    ProductImagesModule,
   ],
   controllers: [],
   providers: [],

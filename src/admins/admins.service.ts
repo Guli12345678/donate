@@ -19,6 +19,12 @@ export class AdminsService {
   async getAdminsById(id: number): Promise<Admins | null> {
     return this.AdminsModel.findByPk(id);
   }
+  async getAdminByEmail(email: string) {
+    const user = await this.AdminsModel.findOne({
+      where: { email },
+    });
+    return user?.dataValues;
+  }
   async updateAdminsById(id: number, updateAdminsDto: UpdateAdminsDto) {
     const admins = await this.AdminsModel.update(updateAdminsDto, {
       where: { id },

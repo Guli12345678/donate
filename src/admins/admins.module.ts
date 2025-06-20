@@ -8,5 +8,6 @@ import { Admins } from './models/admins.model';
   imports: [SequelizeModule.forFeature([Admins])],
   controllers: [AdminsController],
   providers: [AdminsService],
+  exports: [AdminsService],
 })
 export class AdminsModule {}
