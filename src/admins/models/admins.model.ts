@@ -1,4 +1,6 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { BelongsToMany, Column, DataType, Model, Table } from "sequelize-typescript";
+import { Role } from "../../roles/models/role.model";
+import { AdminRole } from "./admin-role.model";
 
 interface IAdminsCreationAttr {
   full_name: string;
@@ -37,4 +39,7 @@ export class Admins extends Model<Admins, IAdminsCreationAttr> {
 
   @Column({ type: DataType.BOOLEAN })
   declare is_active: boolean;
+
+  @BelongsToMany(() => Role, () => AdminRole)
+  roles: Role[];
 }

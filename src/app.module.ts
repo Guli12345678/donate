@@ -20,6 +20,9 @@ import { CreatorSocial } from "./creator-social/models/creator-social.model";
 import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './products/products.module';
 import { ProductImagesModule } from './product_images/product_images.module';
+import { RolesModule } from './roles/roles.module';
+import { AdminRole } from "./admins/models/admin-role.model";
+import { Role } from "./roles/models/role.model";
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -42,9 +45,11 @@ import { ProductImagesModule } from './product_images/product_images.module';
         Donation,
         Notification,
         CreatorSocial,
+        AdminRole,
+        Role
       ],
       autoLoadModels: true,
-      logging: true,
+      logging: false,
       sync: { alter: true }, // force
     }),
     KuryerModule,
@@ -58,6 +63,7 @@ import { ProductImagesModule } from './product_images/product_images.module';
     AuthModule,
     ProductsModule,
     ProductImagesModule,
+    RolesModule,
   ],
   controllers: [],
   providers: [],
