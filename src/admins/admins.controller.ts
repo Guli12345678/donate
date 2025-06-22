@@ -1,42 +1,77 @@
 import {
-  Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  Patch,
   Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
 } from "@nestjs/common";
 import { AdminsService } from "./admins.service";
 import { CreateAdminsDto } from "./dto/create-admins.dto";
 import { UpdateAdminsDto } from "./dto/update-admins.dto";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { Admins } from "./models/admins.model";
 
+@ApiTags("Adminlar")
 @Controller("admins")
 export class AdminsController {
   constructor(private readonly adminsService: AdminsService) {}
 
+  @ApiOperation({ summary: "Admin qoshish" })
+  @ApiResponse({
+    status: 201,
+    description: "Created Admin",
+    type: Admins,
+  })
   @Post()
-  async createAdmins(@Body() createAdminsDto: CreateAdminsDto) {
-    return this.adminsService.createAdmins(createAdminsDto);
+  create(@Body() createAdminDto: CreateAdminsDto) {
+    return this.adminsService.createAdmins(createAdminDto);
   }
-
+  @ApiOperation({ summary: "Barcha adminlar royxati" })
+  @ApiResponse({
+    status: 200,
+    description: "List of Admins",
+    type: [Admins],
+  })
   @Get()
-  async getAllAdminss() {
+  findAll() {
     return this.adminsService.getAllAdminss();
   }
+  @ApiOperation({ summary: "Adminni id raqami boyicha olish" })
+  @ApiResponse({
+    status: 200,
+    description: "Get Admin by id",
+    type: Admins,
+  })
   @Get(":id")
-  async getAdminsById(@Param("id") id: number) {
-    return this.adminsService.getAdminsById(id);
+  findOne(@Param("id") id: string) {
+    return this.adminsService.getAdminsById(+id);
   }
-  @Delete(":id")
-  async removeAdminsByIs(@Param("id") id: number) {
-    return this.adminsService.removeAdminsByIs(id);
-  }
+
+  // @Get("email/:email")
+  // getAdminByEmail(@Param("email") email: string) {
+  //   return this.adminsService.findOne(email);
+  // }
+  @ApiOperation({ summary: "Adminni ozgartirish" })
+  @ApiResponse({
+    status: 200,
+    description: "Updated Admin",
+    type: Admins,
+  })
   @Patch(":id")
-  async updateAdminsById(
-    @Param("id") id: number,
-    @Body() updateAdminsDto: UpdateAdminsDto
-  ) {
-    return this.adminsService.updateAdminsById(id, updateAdminsDto);
+  update(@Param("id") id: string, @Body() updateAdminDto: UpdateAdminsDto) {
+    return this.adminsService.updateAdminsById(+id, updateAdminDto);
+  }
+  @ApiOperation({ summary: "Adminni ochirish" })
+  @ApiResponse({
+    status: 201,
+    description: "Deleted Admin",
+    type: Admins,
+  })
+  @Delete(":id")
+  remove(@Param("id") id: string) {
+    return this.adminsService.removeAdminsByIs(+id);
   }
 }
