@@ -11,7 +11,7 @@ async function start() {
       .setTitle("Nest One Project")
       .setDescription("This project involves NestsJS RESTFULL API")
       .setVersion("1.0")
-      .addTag("Nestjs, swagger, validation, user-role, auth")
+      .addTag("Nestjs, swagger, validation, admin-role, auth")
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
