@@ -1,9 +1,15 @@
-import { Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
+import {
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from "sequelize-typescript";
 import { Product } from "../../products/models/product.model";
 
 interface IProduct_imageCreationAttr {
   productId: number;
-  image_url: string;
+  image_url?: string;
   is_main: boolean;
 }
 
@@ -26,8 +32,11 @@ export class Product_image extends Model<
   declare productId: number;
 
   @Column({
-    type: DataType.STRING(50),
-    allowNull: false,
+    type: DataType.STRING,
   })
   declare image_url: string;
+  @Column({
+    type: DataType.BOOLEAN,
+  })
+  declare is_main: boolean;
 }

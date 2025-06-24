@@ -6,6 +6,7 @@ import { Product } from "./models/product.model";
 import { CategoryModule } from "../category/category.module";
 import { UsersModule } from "../users/users.module";
 import { ProductImagesModule } from "../product_images/product_images.module";
+import { ProductOrdersModule } from "../product-orders/product-orders.module";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ProductImagesModule } from "../product_images/product_images.module";
     forwardRef(() => CategoryModule),
     forwardRef(() => UsersModule),
     forwardRef(() => ProductImagesModule),
+    forwardRef(() => ProductOrdersModule),
   ],
   controllers: [ProductsController],
   providers: [ProductsService],

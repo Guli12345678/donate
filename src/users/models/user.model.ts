@@ -10,6 +10,13 @@ import { Donation } from "../../donations/models/donation.model";
 import { Notification } from "../../notifications/models/notification.model";
 import { Social } from "../../social/models/social.model";
 import { CreatorSocial } from "../../creator-social/models/creator-social.model";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
+import { ProductReview } from "../../product_reviews/models/product_review.model";
+import { SavedItem } from "../../saved_items/models/saved_item.model";
+import { Withdraw } from "../../withdraws/models/withdraw.model";
+import { Payment } from "../../payment/models/payment.model";
+import { CreatorStatistics } from "../../creator-statistics/models/creator-statistic.model";
+import { Product } from "../../products/models/product.model";
 
 interface IUsersCreationAttr {
   full_name: string;
@@ -67,10 +74,34 @@ export class Users extends Model<Users, IUsersCreationAttr> {
   declare banner_url: string;
 
   @HasMany(() => Donation)
-  donation: Donation;
+  donation: Donation[];
 
   @HasMany(() => Notification)
   notification: Notification[];
+
+  @HasMany(() => ProductOrder)
+  order: ProductOrder[];
+
+  @HasMany(() => ProductReview)
+  reviews: ProductReview[];
+
+  @HasMany(() => SavedItem)
+  saved_items: SavedItem[];
+
+  @HasMany(() => Withdraw)
+  withdraws: Withdraw[];
+
+  @HasMany(() => Payment)
+  payments: Payment[];
+
+  @HasMany(() => Product)
+  products: Product[];
+
+  @HasMany(() => CreatorStatistics)
+  statistics: CreatorStatistics[];
+
+  @HasMany(() => Withdraw)
+  withdraw: Withdraw;
 
   @BelongsToMany(() => Social, () => CreatorSocial)
   social: Social[];

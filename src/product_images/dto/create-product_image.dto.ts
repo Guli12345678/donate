@@ -1,34 +1,13 @@
-import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsUrl,
-} from "class-validator";
+import { IsNotEmpty, IsNumber, IsBoolean } from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateProductImageDto {
-  @ApiProperty({
-    example: 1,
-    description: "Mahsulot ID raqami",
-  })
-  @IsNumber()
   @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
   productId: number;
 
-  @ApiProperty({
-    example: "https://example.com/image.jpg",
-    description: "Rasm havolasi",
-  })
-  @IsString()
-  @IsNotEmpty()
-  @IsUrl()
-  image_url: string;
-
-  @ApiProperty({
-    example: true,
-    description: "Asosiy rasm",
-  })
   @IsBoolean()
+  @Type(() => Boolean)
   is_main: boolean;
 }

@@ -1,4 +1,5 @@
-import { Column, DataType, Model, Table } from "sequelize-typescript";
+import { Column, DataType, HasMany, Model, Table } from "sequelize-typescript";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
 
 interface IKuryerCreationAttr {
   full_name: string;
@@ -46,4 +47,7 @@ export class Kuryer extends Model<Kuryer, IKuryerCreationAttr> {
 
   @Column({ type: DataType.STRING })
   declare telegram_link: string;
+
+  @HasMany(() => ProductOrder)
+  orders: ProductOrder
 }

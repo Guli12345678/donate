@@ -3,6 +3,5 @@ import { CreateProductImageDto } from "./create-product_image.dto";
 
 export class UpdateProductImageDto extends PartialType(CreateProductImageDto) {
   productId?: number;
-  image_url?: string;
   is_main?: boolean;
 }

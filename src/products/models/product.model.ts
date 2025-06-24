@@ -3,11 +3,15 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from "sequelize-typescript";
 import { Users } from "../../users/models/user.model";
 import { Category } from "../../category/models/category.model";
+import { ProductOrder } from "../../product-orders/models/product-order.model";
+import { Product_image } from "../../product_images/models/product_image.model";
+import { ProductReview } from "../../product_reviews/models/product_review.model";
 
 interface IProductCreationAttr {
   creatorId: number;
@@ -63,4 +67,13 @@ export class Product extends Model<Product, IProductCreationAttr> {
 
   @BelongsTo(() => Category)
   category: Category;
+
+  @HasMany(() => ProductOrder)
+  orders: ProductOrder;
+
+  @HasMany(() => Product_image)
+  images: Product_image;
+
+  @HasMany(() => ProductReview)
+  reviews: ProductReview;
 }

@@ -6,15 +6,18 @@ import {
   Patch,
   Param,
   Delete,
+  UploadedFile,
+  UseInterceptors,
 } from "@nestjs/common";
 import { ProductImagesService } from "./product_images.service";
 import { CreateProductImageDto } from "./dto/create-product_image.dto";
 import { UpdateProductImageDto } from "./dto/update-product_image.dto";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { Product_image } from "./models/product_image.model";
+import { FileInterceptor } from "@nestjs/platform-express";
 
 @ApiTags("Mahsulot rasmlari")
-@Controller("product-images")
+@Controller("product_images")
 export class ProductImagesController {
   constructor(private readonly productImagesService: ProductImagesService) {}
 
@@ -24,9 +27,13 @@ export class ProductImagesController {
     description: "Created Product Image",
     type: Product_image,
   })
+  @UseInterceptors(FileInterceptor("image_url"))
   @Post()
-  create(@Body() createProductImageDto: CreateProductImageDto) {
-    return this.productImagesService.create(createProductImageDto);
+  create(
+    @Body() createProductImageDto: CreateProductImageDto,
+    @UploadedFile() image_url: any
+  ) {
+    return this.productImagesService.create(createProductImageDto, image_url);
   }
 
   @ApiOperation({ summary: "Barcha mahsulot rasmlari royxati" })
